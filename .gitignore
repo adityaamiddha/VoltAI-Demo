@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Secrets
+.env
+*.env
+config/secrets.env
+
+# Data folders (do not push)
+data/raw/
+data/extracted_text/
+data/cleaned_text/
+data/chunks/
+data/embeddings/
+
+# Vector DB artifacts
+vector_db/
+
+# Large files
+*.pdf
+*.index
