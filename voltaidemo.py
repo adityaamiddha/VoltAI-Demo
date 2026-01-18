@@ -7,6 +7,9 @@ from typing import List, Dict
 import faiss
 import requests
 from sentence_transformers import SentenceTransformer
+import os
+
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 
 # ----------------------------
 # CONFIG
@@ -57,7 +60,8 @@ def ollama_generate(
     context_window: int = 2048,
     timeout_sec: int = 60
 ) -> str:
-    url = "http://localhost:11434/api/generate"
+    url = f"{OLLAMA_BASE_URL}/api/generate"
+
     payload = {
         "model": model,
         "prompt": prompt,
@@ -69,6 +73,7 @@ def ollama_generate(
             "num_ctx": context_window
         }
     }
+    r = requests.get(f"{OLLAMA_BASE_URL}/api/tags", timeout=3)
     r = requests.post(url, json=payload, timeout=timeout_sec)
     r.raise_for_status()
     return r.json().get("response", "").strip()
